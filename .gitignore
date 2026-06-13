@@ -1,0 +1,19 @@
+# Secrets & local config
+.env
+.post-it/
+
+# Generated output
+drafts/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
