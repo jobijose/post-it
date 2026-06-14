@@ -85,9 +85,14 @@ def run_local_auth_flow(*, client_id: str, client_secret: str) -> str:
     webbrowser.open(authorize)
     print(f"If your browser didn't open, visit:\n{authorize}\n")
 
-    done.wait(timeout=300)
+    completed = done.wait(timeout=300)
     server.shutdown()
 
+    if not completed:
+        raise AuthError(
+            "Timed out after 5 minutes waiting for the LinkedIn authorization "
+            "callback. Did you complete the consent flow in the browser?"
+        )
     if captured.get("state") != state:
         raise AuthError("OAuth state mismatch — aborting.")
     code = captured.get("code")

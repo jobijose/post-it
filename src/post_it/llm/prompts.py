@@ -26,7 +26,7 @@ _GUARD = (
 )
 
 
-def system_for(platform: str) -> str:
+def system_for(platform: str, n: int = 3) -> str:
     guidelines = PLATFORM_GUIDELINES.get(
         platform, "Write a clear, engaging social media post."
     )
@@ -34,14 +34,14 @@ def system_for(platform: str) -> str:
     return (
         "You are an expert social media ghostwriter. "
         f"{guidelines} "
-        f"Produce exactly 3 distinct variants using these angles: {angles}. "
-        "Each variant must take a genuinely different angle and tone — not minor "
+        f"Produce exactly {n} distinct variants, each taking a genuinely "
+        f"different angle and tone (for example: {angles}) — not minor "
         "rewordings of the same post. "
         f"{_GUARD}"
     )
 
 
-def user_for(source: SourceResult) -> str:
+def user_for(source: SourceResult, n: int = 3) -> str:
     if source.kind == "ai_direct_topic":
         body = f"Topic to write about:\n{source.topic}"
     else:
@@ -50,5 +50,5 @@ def user_for(source: SourceResult) -> str:
     return (
         f"{body}\n\n"
         "----- END OF SOURCE CONTENT -----\n\n"
-        "Write the 3 post variants now, one per angle."
+        f"Write the {n} post variants now."
     )

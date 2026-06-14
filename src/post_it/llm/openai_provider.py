@@ -34,8 +34,8 @@ class OpenAIProvider(LLMProvider):
             completion = client.chat.completions.parse(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": prompts.system_for(platform)},
-                    {"role": "user", "content": prompts.user_for(source)},
+                    {"role": "system", "content": prompts.system_for(platform, n)},
+                    {"role": "user", "content": prompts.user_for(source, n)},
                 ],
                 response_format=VariantsOutput,
             )

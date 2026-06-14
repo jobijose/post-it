@@ -25,7 +25,7 @@ def run(
     source: str | None = typer.Option(
         None, "--source", "-s", help=f"Input source: {', '.join(SOURCES)}"
     ),
-    input: str | None = typer.Option(
+    source_input: str | None = typer.Option(
         None, "--input", "-i", help="Path to URL .txt file, or a topic/URL."
     ),
     provider: str | None = typer.Option(
@@ -40,20 +40,20 @@ def run(
     settings = load_settings()
 
     source = source or _choose("Input source", list(SOURCES))
-    if not input:
+    if not source_input:
         prompt = (
             "Path to .txt file of URLs"
             if source == "url-file"
             else "Topic or a URL to write about"
         )
-        input = typer.prompt(prompt)
+        source_input = typer.prompt(prompt)
     provider = provider or settings.default_provider
 
     try:
         with console.status("Generating variants..."):
             generated = orchestrator.generate(
                 source_name=source,
-                raw_input=input,
+                raw_input=source_input,
                 provider_name=provider,
                 platform=platform,
                 settings=settings,

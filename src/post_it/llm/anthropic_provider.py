@@ -37,8 +37,8 @@ class AnthropicProvider(LLMProvider):
             response = client.messages.parse(
                 model=self.model,
                 max_tokens=2000,
-                system=prompts.system_for(platform),
-                messages=[{"role": "user", "content": prompts.user_for(source)}],
+                system=prompts.system_for(platform, n),
+                messages=[{"role": "user", "content": prompts.user_for(source, n)}],
                 output_format=VariantsOutput,
             )
         except Exception as exc:
