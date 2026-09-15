@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "post-it"
+version = "0.1.0"
+description = "Turn web content into ready-to-publish social media posts (LinkedIn first, extendable)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "post-it" }]
+keywords = ["linkedin", "social-media", "ai", "content-generation", "cli"]
+
+dependencies = [
+    "typer>=0.12",
+    "rich>=13.7",
+    "httpx>=0.27",
+    "trafilatura>=1.8",
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "anthropic>=0.40",
+    "pyperclip>=1.8",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.30"]
+dev = [
+    "pytest>=8.0",
+    "pytest-httpx>=0.30",
+    "pytest-mock>=3.12",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+post-it = "post_it.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/post_it"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
